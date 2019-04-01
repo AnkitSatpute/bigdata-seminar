@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxyproxy mode="patterns" selectedTabIndex="0" toolbaricon="true" toolsMenu="true" contextMenu="true" advancedMenus="false" previousMode="disabled" resetIconColors="true" useStatusBarPrefix="true" excludePatternsFromCycling="false" excludeDisabledFromCycling="false" ignoreProxyScheme="false" apiDisabled="false" proxyForVersionCheck="3973134291">
+  <defaultPrefs origPrefetch="18"/>
+  <proxies>
+    <proxy name="bigdata-seminar" id="2411089042" notes="" fromSubscription="false" enabled="true" mode="manual" selectedTabIndex="2" lastresort="false" animatedIcons="true" includeInCycle="true" color="#FF4545" proxyDNS="true" noInternalIPs="false" autoconfMode="pac" clearCacheBeforeUse="false" disableCache="false" clearCookiesBeforeUse="false" rejectCookies="false">
+      <matches>
+        <match enabled="true" name="hostnames" pattern="(.*://)?(.*[.@])?node0(\.cluster)?(:[0-9]+)?" isRegEx="true" isBlackList="false" isMultiLine="false" caseSensitive="false" fromSubscription="false"/>
+        <match enabled="true" name="IP Addresses" pattern="(.*://)?10\.42\.23\.[0-9]+(:[0-9]+)?" isRegEx="true" isBlackList="false" isMultiLine="false" caseSensitive="false" fromSubscription="false"/>
+      </matches>
+      <manualconf host="localhost" port="22022" socksversion="5" isSocks="true" username="" password="" domain=""/>
+    </proxy>
+  </proxies>
+</foxyproxy>
