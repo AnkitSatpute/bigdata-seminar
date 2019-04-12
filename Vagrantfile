@@ -63,6 +63,7 @@ Vagrant.configure("2") do |config|
       config.vm.network "forwarded_port", guest: 22, id: "ssh", host: 2200 + i, auto_correct: false
       config.vm.hostname = "#{name}.cluster"
       config.vm.provision :shell, :inline => $network_setup_script
+      config.vm.synced_folder '.', '/vagrant', disabled: true
       config.vm.synced_folder "share", "/home/vagrant/share", create: true
       if $run_scripts then
         $additional_setup_scripts.each do |s|
