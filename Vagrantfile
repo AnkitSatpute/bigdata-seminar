@@ -23,7 +23,7 @@
 # creating the VMs, the surplus ones are not destroyed automatically -- you need
 # to manually run the destroy command for the corresponding nodes before
 # reducing the number.
-$num_nodes = 1
+$num_nodes = 3
 
 # If set to true, run additional setup scripts in the 'scripts' folder during VM
 # provisioning
@@ -52,22 +52,22 @@ Vagrant.configure("2") do |config|
   $num_nodes.times do |i|
     config.vm.define :"node#{i}" do |node|
       name = "node#{i}"
-      config.vm.provider "virtualbox" do |v|
+      node.vm.provider "virtualbox" do |v|
         v.linked_clone = true
         v.name = name
         v.customize ["modifyvm", :id, "--groups", "/bigdata-seminar"]
         v.memory = 512
         v.cpus = 1
       end
-      config.vm.network :private_network, ip: "10.42.23.#{100 + i}", :mac => "0E#{sprintf("%010X", i)}"
-      config.vm.network "forwarded_port", guest: 22, id: "ssh", host: 2200 + i, auto_correct: false
-      config.vm.hostname = "#{name}.cluster"
-      config.vm.provision :shell, :inline => $network_setup_script
-      config.vm.synced_folder '.', '/vagrant', disabled: true
-      config.vm.synced_folder "share", "/home/vagrant/share", create: true
+      node.vm.network :private_network, ip: "10.42.23.#{100 + i}", :mac => "0E#{sprintf("%010X", i + 1)}"
+      node.vm.network "forwarded_port", guest: 22, id: "ssh", host: 2200 + i, auto_correct: false
+      node.vm.hostname = "#{name}.cluster"
+      node.vm.provision :shell, :inline => $network_setup_script
+      node.vm.synced_folder '.', '/vagrant', disabled: true
+      node.vm.synced_folder "share", "/home/vagrant/share", create: true
       if $run_scripts then
         $additional_setup_scripts.each do |s|
-          config.vm.provision :shell, :path => s
+          node.vm.provision :shell, :path => s
         end
       end
     end
