@@ -56,8 +56,14 @@ Vagrant.configure("2") do |config|
         v.linked_clone = true
         v.name = name
         v.customize ["modifyvm", :id, "--groups", "/bigdata-seminar"]
-        v.memory = 512
-        v.cpus = 1
+        if name == "node0" then
+          # node0 gets additional resources for manager processes
+          v.memory = 2048
+          v.cpus = 3
+        else
+          v.memory = 1024
+          v.cpus = 1
+        end
       end
       node.vm.network :private_network, ip: "10.42.23.#{100 + i}", :mac => "0E#{sprintf("%010X", i + 1)}"
       node.vm.network "forwarded_port", guest: 22, id: "ssh", host: 2200 + i, auto_correct: false
